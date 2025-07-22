@@ -41,7 +41,7 @@ python scripts/generate_data.py
 ### 4. Run the Dashboard
 streamlit run main.py
 
-
+---
 ### 📁 Upload Custom Data
 You can upload your own CSV files directly from the sidebar:
 
