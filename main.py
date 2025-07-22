@@ -8,6 +8,13 @@ from datetime import datetime
 from PIL import Image
 
 sys.path.append(os.path.abspath("utils"))
+import base64
+
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img_file:
+        b64_data = base64.b64encode(img_file.read()).decode()
+    return f"data:image/jpeg;base64,{b64_data}"
+
 
 from utils.io_helpers import load_all_data
 from utils.filters import apply_filters
@@ -33,18 +40,21 @@ if theme == "Dark":
 logo_path = "assets/healthkart_logo.jpeg"
 if os.path.exists(logo_path):
     logo = Image.open(logo_path)
-    col1, col2 = st.columns([1, 4])
-    with col1:
-        st.image(logo, width=100)
-    with col2:
-        st.title("HealthKart Influencer Campaign Dashboard")
+    image_base64 = get_base64_image("assets/healthkart_logo.jpeg")
+    st.markdown(f"""
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <img src="{image_base64}" width="60" style="margin-bottom: 0;" />
+            <h1 style="margin-bottom: 0;">HealthKart Influencer Campaign Dashboard</h1>
+        </div>
+        """, unsafe_allow_html=True)
+
 else:
     st.title("HealthKart Influencer Campaign Dashboard")
 
 st.markdown("Track your influencer campaigns across platforms, brands, and personas with insights into performance, ROI, and payouts.")
 
 # --- Upload Section ---
-st.subheader("📂 Upload Your Campaign Data (Optional)")
+st.subheader("Upload Your Campaign Data (Optional)")
 tabs = st.tabs(["🧑‍🤝‍🧑 Influencers", "📢 Posts", "📦 Tracking", "💰 Payouts"])
 
 uploaded_influencers = tabs[0].file_uploader("Upload influencers.csv", type="csv", key="inf")
@@ -60,10 +70,10 @@ def preview_csv(file, label, required_columns, save_name):
         df = pd.read_csv(file, parse_dates=parse_date_cols)
 
         if not all(col in df.columns for col in required_columns):
-            st.error(f"❌ {label} CSV is missing required columns: {required_columns}")
+            st.error(f"{label} CSV is missing required columns: {required_columns}")
             return None
 
-        st.success(f"✅ {label} uploaded: {df.shape[0]} rows")
+        st.success(f"{label} uploaded: {df.shape[0]} rows")
         st.dataframe(df.head(), use_container_width=True)
 
         with open(f"data/{save_name}", "wb") as f:
@@ -86,7 +96,7 @@ with tabs[3]:
                           ["influencer_id", "basis", "rate", "orders", "total_payout"], "payouts_uploaded.csv")
 
 if not all([influencers is not None, posts is not None, tracking is not None, payouts is not None]):
-    st.warning("⚠️ Some files not uploaded — using default data from /data.")
+    st.warning("Some files not uploaded — using default data from /data.")
     influencers, posts, tracking, payouts = load_all_data()
 
 # --- Sidebar Filters ---
