@@ -102,7 +102,7 @@ If no files are uploaded, default data from the /data folder is used.
 
 -> Faker
 
--> pdfkit + Jinja2
+-> xhtml2pdf + jinja2
 
 ---
 🙌 Author
