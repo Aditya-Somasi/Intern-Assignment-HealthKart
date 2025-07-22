@@ -60,10 +60,43 @@ Columns: influencer_id, basis, rate, orders, total_payout
 If no files are uploaded, default data from the /data folder is used.
 
 ---
-### 🧾 PDF Export Setup
--> Uses xhtml2pdf to render PDF from a Jinja2 HTML template.
+### 🖨️ Export Options
+### ✅ 1. HTML Summary (Deployed Online)
+Fully supported in Streamlit Cloud:
 
--> No need for wkhtmltopdf → Deployable on Streamlit Community Cloud.
+Click "Generate Insight Summary"
+
+Preview the report inside the app
+
+Download as .html
+
+Use Print to PDF from your browser to export as PDF
+
+### 🖥️ 2. PDF Summary (Offline Use Only)
+If you're running locally, enable full PDF generation by uncommenting the lines in main.py.
+
+### 📌 Note: PDF export with xhtml2pdf is not supported on Streamlit Cloud.
+
+--- 
+
+### 📁 Folder Structure
+.
+├── assets/
+│   └── healthkart_logo.jpeg
+├── data/
+│   └── [sample or uploaded CSVs]
+├── insights/
+│   └── [exported PDFs or HTML summaries]
+├── templates/
+│   └── insight_template.html
+├── utils/
+│   ├── filters.py
+│   ├── io_helpers.py
+│   ├── metrics.py
+│   ├── pdf_export.py              # HTML Export (Cloud-safe)
+│   └── pdf_export_local.py        # Local PDF Export (Offline use only)
+└── main.py
+
 
 ---
 ### 📄 Sample Outputs
@@ -102,7 +135,7 @@ If no files are uploaded, default data from the /data folder is used.
 
 -> Faker
 
--> xhtml2pdf + jinja2
+-> xhtml2pdf (for offline user) + jinja2
 
 ---
 🙌 Author

@@ -6,7 +6,7 @@ import sys
 import os
 from datetime import datetime
 from PIL import Image
-from utils.pdf_export import export_insight_pdf
+
 
 
 sys.path.append(os.path.abspath("utils"))
@@ -21,7 +21,8 @@ def get_base64_image(image_path):
 from utils.io_helpers import load_all_data
 from utils.filters import apply_filters
 from utils.metrics import calculate_roas
-from utils.pdf_export import export_insight_pdf
+from utils.pdf_export import export_insight_html
+## to export the PDF locally, from utils.pdf_export_local import export_insight_pdf
 
 # --- Theme Toggle ---
 theme = st.sidebar.radio("Theme", ["Light", "Dark"])
@@ -171,10 +172,24 @@ st.dataframe(payout_display.sort_values("total_payout", ascending=False), use_co
 st.subheader("📤 Export Data")
 st.download_button("Download Campaign Summary (CSV)", campaign_summary.to_csv(index=False), file_name="campaign_summary.csv")
 
-if st.button("📄 Download Insight Summary (PDF)"):
-    pdf_path = export_insight_pdf(top_influencers, campaign_summary)
-    with open(pdf_path, "rb") as f:
-        st.download_button("⬇️ Download Summary PDF", f, file_name="healthkart_summary.pdf")
+st.subheader("📄 Download Insight Summary (HTML)")
+if st.button("Generate Insight Summary"):
+    html_path = export_insight_html(top_influencers, campaign_summary)
+    with open(html_path, "r", encoding="utf-8") as f:
+        html_content = f.read()
+
+    st.download_button("⬇️ Download Insight Summary (HTML)", html_content, file_name="healthkart_summary.html", mime="text/html")
+    
+    
+## To export the PDF locally, uncomment the following lines:
+    
+# if st.button("📄 Download Insight Summary (PDF)"):
+#     pdf_path = export_insight_pdf(top_influencers, campaign_summary)
+#     if pdf_path:
+#         with open(pdf_path, "rb") as f:
+#             st.download_button("⬇️ Download PDF", f, file_name="healthkart_summary.pdf")
+#     else:
+#         st.error("PDF generation failed.")
 
 # --- Footer ---
 st.markdown("---")
