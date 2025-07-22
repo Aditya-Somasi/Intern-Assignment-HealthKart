@@ -92,7 +92,7 @@ If no files are uploaded, default data from the /data folder is used.
 
 #### 🧑‍💻 Built With
 
-->Python
+-> Python
 
 -> Streamlit
 
