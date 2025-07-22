@@ -3,7 +3,7 @@
 An interactive Streamlit dashboard for tracking and analyzing the ROI of influencer campaigns across platforms and brands.  
 You can upload your own data or use the simulated datasets provided.
 
----
+
 
 ## 📌 Features
 
@@ -66,6 +66,8 @@ Columns: influencer_id, basis, rate, orders, total_payout
 
 If no files are uploaded, default data from the /data folder is used.
 
+
+---
 📄 Sample Outputs
 
 -> 📊 Campaign Summary: Revenue & Orders per campaign
@@ -78,6 +80,8 @@ If no files are uploaded, default data from the /data folder is used.
 
 -> 📄 Insight PDF: Downloadable 1-page summary
 
+---
+
 ### 🧠 Assumptions
 
 -> Influencers may be paid per post or per order
@@ -85,6 +89,8 @@ If no files are uploaded, default data from the /data folder is used.
 -> ROAS = Total Revenue / Total Payout (incremental assumed through filters)
 
 -> Revenue + post engagement are simulated using realistic ranges
+
+---
 
 #### 🧑‍💻 Built With
 
