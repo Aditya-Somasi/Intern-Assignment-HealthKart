@@ -35,21 +35,14 @@ You can upload your own data or use the simulated datasets provided.
 ### 2. Install Python dependencies
 pip install -r requirements.txt
 
-### 3. Install wkhtmltopdf (for PDF export)
--> Download from: https://wkhtmltopdf.org/downloads.html
-
--> Install and ensure it’s added to system PATH
-
--> Or manually configure path in utils/pdf_export.py if needed
-
-### 4. Generate Sample Data (Optional)
+### 3. Generate Sample Data (Optional)
 python scripts/generate_data.py
 
-### 5. Run the Dashboard
+### 4. Run the Dashboard
 streamlit run main.py
 
 
-📁 Upload Custom Data
+### 📁 Upload Custom Data
 You can upload your own CSV files directly from the sidebar:
 
 -> Influencers CSV
@@ -66,9 +59,14 @@ Columns: influencer_id, basis, rate, orders, total_payout
 
 If no files are uploaded, default data from the /data folder is used.
 
+---
+### 🧾 PDF Export Setup
+-> Uses xhtml2pdf to render PDF from a Jinja2 HTML template.
+
+-> No need for wkhtmltopdf → Deployable on Streamlit Community Cloud.
 
 ---
-📄 Sample Outputs
+### 📄 Sample Outputs
 
 -> 📊 Campaign Summary: Revenue & Orders per campaign
 

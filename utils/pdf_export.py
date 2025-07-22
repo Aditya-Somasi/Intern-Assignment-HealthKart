@@ -1,18 +1,16 @@
-import pdfkit
 from jinja2 import Environment, FileSystemLoader
-import datetime
+from xhtml2pdf import pisa
 import os
-
-
-
-config = pdfkit.configuration(wkhtmltopdf=r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe")
+import datetime
 
 def export_insight_pdf(top_influencers_df, campaign_summary_df, output_path="insights/summary.pdf"):
+    os.makedirs("insights", exist_ok=True)
+
     # Convert to dict
     top_influencers = top_influencers_df.head(5).to_dict(orient="records")
     campaign_summary = campaign_summary_df.to_dict(orient="records")
 
-    # Load HTML template
+    # Load Jinja2 Template
     env = Environment(loader=FileSystemLoader("templates"))
     template = env.get_template("insight_template.html")
     html = template.render(
@@ -21,6 +19,8 @@ def export_insight_pdf(top_influencers_df, campaign_summary_df, output_path="ins
         date=datetime.datetime.today().strftime("%Y-%m-%d")
     )
 
-    os.makedirs("insights", exist_ok=True)
-    pdfkit.from_string(html, output_path, configuration=config)
+    # Render HTML to PDF using xhtml2pdf
+    with open(output_path, "w+b") as f:
+        pisa.CreatePDF(html, dest=f)
+
     return output_path

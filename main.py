@@ -6,6 +6,8 @@ import sys
 import os
 from datetime import datetime
 from PIL import Image
+from utils.pdf_export import export_insight_pdf
+
 
 sys.path.append(os.path.abspath("utils"))
 import base64
