@@ -153,13 +153,13 @@ st.subheader("📈 ROAS Trend Over Time")
 roas_by_month = filtered_tracking.copy()
 roas_by_month["month"] = roas_by_month["date"].dt.to_period("M").dt.to_timestamp()
 monthly = roas_by_month.groupby("month").agg({"revenue": "sum"}).reset_index()
-fig_line = px.line(monthly, x="month", y="revenue", title="Monthly Revenue Trend", template=get_plot_theme())
+fig_line = px.line(monthly, x="month", y="revenue", title="Monthly Revenue Trend", template="plotly")
 st.plotly_chart(fig_line, use_container_width=True)
 
 # --- Engagement ---
 st.subheader("📣 Post Engagement Overview")
 post_summary = filtered_posts.groupby("platform").agg({"reach": "mean", "likes": "mean", "comments": "mean"}).reset_index()
-fig2 = px.bar(post_summary, x="platform", y=["reach", "likes", "comments"], barmode="group", template=get_plot_theme())
+fig2 = px.bar(post_summary, x="platform", y=["reach", "likes", "comments"], barmode="group", template="plotly")
 st.plotly_chart(fig2, use_container_width=True)
 
 # --- Payouts ---
