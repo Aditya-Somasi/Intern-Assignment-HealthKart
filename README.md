@@ -138,6 +138,9 @@ If you're running locally, enable full PDF generation by uncommenting the lines 
 -> xhtml2pdf (for offline user) + jinja2
 
 ---
+App URL: https://intern-assignment-healthkart.streamlit.app/
+
+---
 🙌 Author
 Made by Aditya with Streamlit, Plotly, Pandas & ❤️
 
