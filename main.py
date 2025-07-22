@@ -25,19 +25,19 @@ from utils.pdf_export import export_insight_html
 ## to export the PDF locally, from utils.pdf_export_local import export_insight_pdf
 
 # --- Theme Toggle ---
-theme = st.sidebar.radio("Theme", ["Light", "Dark"])
-def get_plot_theme():
-    return "plotly_dark" if theme == "Dark" else "plotly_white"
+# theme = st.sidebar.radio("Theme", ["Light", "Dark"])
+# def get_plot_theme():
+#     return "plotly_dark" if theme == "Dark" else "plotly_white"
 
-if theme == "Dark":
-    st.markdown("""
-        <style>
-        .main {
-            background-color: #0e1117;
-            color: white;
-        }
-        </style>
-    """, unsafe_allow_html=True)
+# if theme == "Dark":
+#     st.markdown("""
+#         <style>
+#         .main {
+#             background-color: #0e1117;
+#             color: white;
+#         }
+#         </style>
+#     """, unsafe_allow_html=True)
 
 # --- Display Logo and Title ---
 logo_path = "assets/healthkart_logo.jpeg"
@@ -128,7 +128,7 @@ st.metric("Top Persona", filtered_influencers['persona'].mode()[0] if not filter
 st.subheader("📊 Campaign Revenue Summary")
 campaign_summary = filtered_tracking.groupby("campaign").agg({"orders": "sum", "revenue": "sum"}).reset_index()
 st.dataframe(campaign_summary, use_container_width=True)
-fig = px.bar(campaign_summary, x="campaign", y="revenue", title="Revenue by Campaign", color="campaign", template=get_plot_theme())
+fig = px.bar(campaign_summary, x="campaign", y="revenue", title="Revenue by Campaign", color="campaign", template="plotly")
 st.plotly_chart(fig, use_container_width=True)
 
 # --- ROAS ---
@@ -139,7 +139,7 @@ st.dataframe(top_influencers.sort_values("roas", ascending=False), use_container
 # --- Top 5 ROAS Chart ---
 st.subheader("🏆 Top 5 Influencers by ROAS")
 top_5 = top_influencers.sort_values("roas", ascending=False).head(5)
-fig_top = px.bar(top_5, x='name', y='roas', color='platform', text_auto='.2s', title='Top 5 ROAS Performers', template=get_plot_theme())
+fig_top = px.bar(top_5, x='name', y='roas', color='platform', text_auto='.2s', title='Top 5 ROAS Performers', template="plotly")
 st.plotly_chart(fig_top, use_container_width=True)
 
 # --- Heatmap ---
