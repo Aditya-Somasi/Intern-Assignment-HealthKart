@@ -106,7 +106,7 @@ If no files are uploaded, default data from the /data folder is used.
 
 -> pdfkit + Jinja2
 
-
+---
 🙌 Author
 Made by Aditya with Streamlit, Plotly, Pandas & ❤️
 
